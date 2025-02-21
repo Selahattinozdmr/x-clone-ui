@@ -44,11 +44,13 @@ const PostInteractions = ({
     
     addOptimisticCount("like");
     await likePost(postId);
-    setState((prev) => ({
-      ...prev, 
-      likes: isLiked ? prev.likes - 1 : prev.likes + 1,
-      isLiked: !prev.isLiked,
-    }));
+    setState((prev) => {
+      return {
+        ...prev,
+        likes: prev.isLiked ? prev.likes - 1 : prev.likes + 1,
+        isLiked: !prev.isLiked,
+      };
+    });
   };
   const rePostAction = async () => {
 
@@ -66,19 +68,23 @@ const PostInteractions = ({
 
     addOptimisticCount("rePost");
     await rePost(postId);
-    setState((prev) => ({
-      ...prev,
-      rePosts: isRePosted ? prev.rePosts - 1 : prev.rePosts + 1,
-      isRePosted: !prev.isRePosted,
-    }));
+    setState((prev) => {
+      return {
+        ...prev,
+        rePosts: prev.isRePosted ? prev.rePosts - 1 : prev.rePosts + 1,
+        isRePosted: !prev.isRePosted,
+      };
+    });
   };
   const saveAction = async () => {
     addOptimisticCount("save");
     await savePost(postId);
-    setState((prev) => ({
-      ...prev,
-      isSaved: !prev.isSaved,
-    }));
+    setState((prev) => {
+      return {
+        ...prev,
+        isSaved: !prev.isSaved,
+      };
+    });
   };
   const [optimisticCount, addOptimisticCount] = useOptimistic(
     state,
