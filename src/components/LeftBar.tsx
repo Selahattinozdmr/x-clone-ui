@@ -1,5 +1,7 @@
 import Link from "next/link";
 import Image from "./Image";
+import Socket from "./Socket";
+import Notification from "./Notification";
 
 const menuList = [
   {
@@ -14,12 +16,12 @@ const menuList = [
     link: "/",
     icon: "explore.svg",
   },
-  {
-    id: 3,
-    name: "Notification",
-    link: "/",
-    icon: "notification.svg",
-  },
+  // {
+  //   id: 3,
+  //   name: "Notification",
+  //   link: "/",
+  //   icon: "notification.svg",
+  // },
   {
     id: 4,
     name: "Messages",
@@ -75,20 +77,27 @@ const LeftBar = () => {
         </Link>
         {/* MENU LIST */}
         <div className="flex flex-col gap-4">
-          {menuList.map((item) => (
-            <Link
-              href={item.link}
-              className="p-2 rounded-full hover:bg-[#181818] flex items-center gap-4"
-              key={item.id}
-            >
-              <Image
-                path={`icons/${item.icon}`}
-                alt={item.name}
-                w={24}
-                h={24}
-              />
-              <span className="hidden xxl:inline">{item.name}</span>
-            </Link>
+          {menuList.map((item, i) => (
+            <div key={item.id || i}>
+              {i == 2 && (
+                <div>
+                  <Notification />
+                </div>
+              )}
+              <Link
+                href={item.link}
+                className="p-2 rounded-full hover:bg-[#181818] flex items-center gap-4"
+                
+              >
+                <Image
+                  path={`icons/${item.icon}`}
+                  alt={item.name}
+                  w={24}
+                  h={24}
+                />
+                <span className="hidden xxl:inline">{item.name}</span>
+              </Link>
+            </div>
           ))}
         </div>
         {/* BUTTON */}
@@ -105,11 +114,19 @@ const LeftBar = () => {
           Post
         </Link>
       </div>
+      <Socket />
+
       {/* USER */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-10 h-10 relative rounded-full overflow-hidden">
-            <Image path="/general/avatar.png" alt="lama dev" w={100} h={100} tr={true} />
+            <Image
+              path="/general/avatar.png"
+              alt="lama dev"
+              w={100}
+              h={100}
+              tr={true}
+            />
           </div>
           <div className="hidden xxl:flex flex-col">
             <span className="font-bold">Lama Dev</span>
